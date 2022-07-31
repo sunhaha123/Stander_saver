@@ -1,0 +1,80 @@
+sudo ln -s /etc/nginx/sites-available/gymnastics.org.cn /etc/nginx/sites-enabled/gymnastics.org.cn
+gunicorn --bind unix:/tmp/etennis.top.socket yyonline.wsgi:application
+
+sudo service nginx reload
+sudo nginx -s reload
+python manage.py collectstatic
+/root/.virtualenvs/yyonline3
+/sun/sites/etennis.top
+/root/.virtualenvs/yyonline3/lib/python3.5/site-packages/matplotlib/mpl-data/matplotlibrc
+
+cd /sun/sites/xijinsport.com/xijinsport/xijinsport
+gunicorn --bind unix:/tmp/xijinsport.com.socket xijinsport.wsgi:application
+gunicorn --bind unix:/tmp/corpus.org.cn.socket yuliao.wsgi:application
+gunicorn --bind unix:/tmp/skr7777777.cn.socket yuliao.wsgi:application
+
+sudo ln -s /etc/nginx/sites-available/corpus.org.cn /etc/nginx/sites-enabled/corpus.org.cn
+sudo ln -s /etc/nginx/sites-available/ytygsports.cn /etc/nginx/sites-enabled/ytygsports.cn
+sudo ln -s /etc/nginx/sites-available/igs8.cn /etc/nginx/sites-enabled/igs8.cn
+
+[Unit]
+After=syslog.target network.target remote-fs.target nss-lookup.target
+[Service]
+# 你的用户
+User=root
+# 你的目录
+WorkingDirectory=/sun/sites/etennis.top/yyonline/yyonline
+# gunicorn启动命令
+ExecStart=/root/.virtualenvs/yyonline3/bin/gunicorn --bind unix:/tmp/ytygsports.cn.socket yyonline.wsgi:application
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl start lei
+
+send_mail("learn django", "step by step", "sunjh007@outlook.com",['sunjh007@163.com'], fail_silently=False)
+
+ps aux | grep -i manage  
+
+/root/.virtualenvs/testa/
+
+ps aux | grep gunicorn
+ps aux|grep xxx
+gunicorn --bind unix:/tmp/igwin.cn.socket XiaoBigdata.wsgi:application
+
+[Unit]
+After=syslog.target network.target remote-fs.target nss-lookup.target
+[Service]
+# 你的用户
+User=root
+# 你的目录
+WorkingDirectory=/sun/sites/igwin.cn/XiaoBigdata
+# gunicorn启动命令
+ExecStart=/root/.virtualenvs/yyonline3/bin/gunicorn --bind unix:/tmp/igwin.cn.socket XiaoBigdata.wsgi:application
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+
+
+/etc/nginx/sites-available/demo.zmrenwu.com
+
+
+/sun/sites/igwin.cn/
+
+source env/bin/activate
+
+sudo ln -s /etc/nginx/sites-available/igwin.cn /etc/nginx/sites-enabled/igwin.cn
+
+gunicorn --bind unix:/tmp/skr7777777.cn.socket yuliao.wsgi:application
+gunicorn --bind unix:/tmp/igwin.cn.socket XiaoBigdata.wsgi:application
+gunicorn --bind unix:/tmp/corpus.org.cn.socket yuliao.wsgi:application
+sudo service nginx reload
+sudo start gunicorn-demo.corpus.org.cn
+
+/sun/sites/igs8.cn/yyonline/yyonline/
+
+/usr/lib/systemd/system/
+
+sudo ln -s /etc/nginx/sites-available/192.168.2.131 /etc/nginx/sites-enabled/192.168.2.131
+
+gunicorn --bind unix:/tmp/192.168.2.131 Stander.wsgi:application --worker-class gevent  --reload -w 4 --preload

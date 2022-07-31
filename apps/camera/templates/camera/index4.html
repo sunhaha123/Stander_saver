@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>虹口游泳学校防溺水智慧平台</title>
+    <link rel="stylesheet" href="{% static "camera/css/index.css" %}">
+    <script src="{% static "camera/js/jquery-3.1.1.min.js" %}"></script>
+    <script type="text/javascript" charset="utf-8" src="{% static "camera/js/echart.min.js" %}"></script>
+    <script src="{% static "camera/js/main.js" %}"></script>
+    <script src="{% static "camera/js/scale.js" %}"></script>
+    <script src="{% static "camera/js/comChartUi.js" %}"></script>
+    <script src="{% static "camera/js/index.js" %}"></script>
+</head>
+<body id="contBody">
+    <div class="container">
+        <div class="header">
+            <div class="headBack">虹口游泳学校防溺水智慧平台</div>
+            <div class="shadow"></div>
+            <div class="airQuality">
+                <div class="quality left">
+                    <div class="ql">
+                        <div class="value">游离性余氯：0.22</div>
+                        <div class="value">浑浊度：0.15NTU</div>
+                    </div>
+                    <div class="ql">
+                        <div class="value">PH值：2.2</div>
+                        <div class="value">水温：36℃</div>
+                    </div>
+
+                </div>
+                <div class="grade right">优</div>
+            </div>
+            <div class="WeTime">
+                <div class="timeWrap">
+                    <span id="time">15:51</span>
+                    <p id="date">1月10日 星期一</p>
+                </div>
+            </div>
+            <div class="warn">
+                <div class="warnL">
+                    <div class="round c00FA1F"></div>
+                    <div class="text1">
+                        <span>安全</span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="warnL">
+                    <div class="round FFFE00"></div>
+                    <div class="text2">
+                        <span>注意</span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="warnL">
+                    <div class="round FF2300"></div>
+                    <div class="text3">
+                        <span>报警</span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="lifeguard">
+               救生员状态: 在岗 4 <span>离岗 0</span>
+            </div>
+            <div class="clearWarn" style="align-content: center;display:block;height:50px">
+                <span style="font-size: 40px;" id="abc"></span>
+                <input type="submit" class="btns" style="float:right;margin:10px"
+                       onmouseover="this.style.backgroundPosition='left -10px'"
+                       onmouseout="this.style.backgroundPosition='left top'" value="清除报警" id="stop"/>
+            </div>
+            <!-- <div class="clearWarn" id="stop">
+                清除警告
+            </div> -->
+        </div>
+        <div class="container">
+            <div class="pageTab">
+                <div class="currentCount">
+                    <div class="title">泳池实时人数</div>
+                    <div class="count"><span style="font-size: 55px;" id="abc"></span>15人</div>
+                </div>
+                <div class="currentCount">
+                    <div class="title">泳池最大容纳的人数</div>
+                    <div class="count">75<span>人</span></div>
+                </div>
+               
+            </div>
+            <div class="contBox">
+                    <ul class="btnBox" id="btnWrap">
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li class="active"></li>
+                    </ul>
+                   <!-- <img src="http://127.0.0.1:8010/camera/video_feed1" height="754px" width="1854px"> -->
+                   <div class="imageBox" id="imageWrap">
+                        <div class="image show width2">
+                            <img src="http://127.0.0.1:8009/camera/video_feed1" height="100%" width="100%">
+                        </div>
+                        <div class="image show width2">
+                            <img src="http://127.0.0.1:8009/camera/video_feed2" height="100%" width="100%">
+                        </div>
+                        <div class="image show width2">
+                            <img src="http://127.0.0.1:8009/camera/video_feed3" height="100%" width="100%">
+                        </div>
+                        <div class="image show width2">
+                            <img src="http://127.0.0.1:8009/camera/video_feed4" height="100%" width="100%">
+                        </div>
+                   </div>
+            </div>
+            <div class="lt"></div>
+            <div class="lb"></div>
+            <div class="rt"></div>
+            <div class="rb"></div>
+        </div>
+    </div>
+
+</body>
+<!-- <audio controls id="player" style="width: 0px;height:0px;">    　　
+    <source src="/media/music/alarm_voice3.mp3" type="audio/mpeg">
+</audio> -->
+<!-- <script>
+var isClick = false;
+    $(function () {
+        var timeObj = null;
+
+        // timeObj = setInterval('get_data()', 250);//轮询执行，2000ms一次
+
+        $('#stop').bind('click', function () {
+            if (isClick == true) return false;
+            isClick = true;
+            stopMusic();
+            clearInterval(timeObj);
+            // 300000 表示30秒
+            // setTimeout(function() {
+
+            //     timeObj = setInterval('get_data()', 250);
+            // }, 30000);
+        });
+    });
+
+    function playMusic() {
+            var player = $("#player")[0]; /*jquery对象转换成js对象*/
+            if (player.paused) { /*如果已经暂停*/
+                player.play(); /*播放*/
+            }
+        }
+
+    // function get_data() {
+    //     isClick = false;
+    //     $.post('/camera/', data = {}, function (res) {
+    //         $("#abc").text(res['normal']);
+    //         var i = 0;
+    //         if (res['code'] == '1') {
+    //             $("#abc").css({'color': 'white'})
+    //             playMusic();
+
+    //         }
+    //         if (res['code'] == '0') {
+    //             stopMusic();
+    //             $("#abc").css({'color': 'white'})
+    //         }
+
+    //     })
+    // }
+
+    function stopMusic() {
+        var player = $("#player")[0]; /*jquery对象转换成js对象*/
+        if (player.played) { /*如果已经暂停*/
+            player.pause(); /*播放*/
+        }
+    }
+</script> -->
+</html>

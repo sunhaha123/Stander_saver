@@ -1,3 +1,12 @@
-from django.test import TestCase
+def foo():
+    print('starting...')
+    while True:
+        res = yield 4
+        print('res', res)
 
-# Create your tests here.
+g = foo()
+
+print(next(g))
+print('*'*20)
+print(next(g))
+

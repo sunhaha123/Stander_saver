@@ -94,11 +94,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "huhujia",
-        'USER':"root",
-        'PASSWORD':"root",
-        'HOST':"127.0.0.1",
-        'OPTIONS':{
-            "init_command":"SET foreign_key_checks = 0;",
+        'USER': "root2",
+        'PASSWORD': "123456",
+        'HOST': "127.0.0.1",
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
     }
 
     }

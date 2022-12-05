@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Apr  1 14:00:52 2021
-
-@author: sunjh
-"""
-
 
 import base64
 import json
@@ -14,10 +8,11 @@ from PIL import Image, ImageDraw
 import numpy as np
 import urllib.request
 import math
-#client_id 为官网获取的AK， client_secret 为官网获取的SK
-client_id =	'59npwyOfH9GvA1zcAc8e3Ge4'
-client_secret = 'lezRZudMdyLLKDseVdzlTVVpaSoy5dL2'
-token_key = '24.27c94bfb0084dd154b58d6f2f0c59d99.2592000.1619849172.282335-19081284'
+
+# client_id 为官网获取的AK， client_secret 为官网获取的SK
+client_id = 'E95NnZ6u9sDmpKGU8LPNd2bY'
+client_secret = 'jTnr8uVACEGe7cTK6OR3AME9G14uYsGH'
+token_key = '24.92acd3908cacca9209e11f976555be11.2592000.1672821373.282335-28848927'
 
 def get_token():
     host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=' + client_id + '&client_secret=' + client_secret
@@ -36,8 +31,8 @@ def draw_bodys(img,bodys):
       height = location['height']
       left = location['left']
       top = location['top']
-      x1,y1 = left,top
-      x2,y2 = left+width,top+height
+      x1, y1 = left, top
+      x2, y2 = left+width, top+height
       # x1,y1 ------     
       # |          |
       # |          |
@@ -47,11 +42,11 @@ def draw_bodys(img,bodys):
       # cv2.rectangle(img,(x1, y1), (x2, y2), (255,0,0), 2)
       # message 是否看手机
       cellphone = bodys['attributes']['cellphone']['score']
-      if cellphone >0.5:
+      if cellphone > 0.5:
             message = 1
       else:
             message = 0
-      return x1,y1,x2,y2,img,message
+      return x1, y1, x2, y2, img, message
 
 def body_analysis(img_unint8):
 #    
@@ -59,7 +54,7 @@ def body_analysis(img_unint8):
 #    # 二进制方式打开图片文件
 #    f = open(filename, 'rb')
     pointsize = 3
-    success,encoded_image = cv2.imencode(".jpg",img_unint8)
+    success, encoded_image = cv2.imencode(".jpg", img_unint8)
     img_bytes = encoded_image.tostring()
     img = base64.b64encode(img_bytes)    
     request_url = "https://aip.baidubce.com/rest/2.0/image-classify/v1/body_attr"
@@ -77,24 +72,24 @@ def body_analysis(img_unint8):
     content = response.read()
     end = time.time()
 
-    print('百度api处理时长:'+'%.2f'%(end-begin)+'秒')
+    print('百度api处理时长:'+'%.2f' % (end-begin)+'秒')
     if content:
         #print(content)
-        content=content.decode('utf-8')
+        content = content.decode('utf-8')
 #        print(content)
         data = json.loads(content)
         #print(data)
         #print(data) data
         if 'person_info' in data:
-            result=data['person_info'][0] 
+            result = data['person_info'][0]
             if data['person_info'] == []:                     
                print('NO PEOPLE!')
-               return 0,0,0,0,np.array([]),1,0  #img,statue,message
+               return 0, 0, 0, 0, np.array([]), 1, 0  #img,statue,message
             else:
-               x1,y1,x2,y2,result_pic,message = draw_bodys(img_unint8,result)
-               return x1,y1,x2,y2,result_pic,0,message
+               x1, y1, x2, y2, result_pic, message = draw_bodys(img_unint8, result)
+               return x1, y1, x2, y2, result_pic, 0, message
         else:
-               return 0,0,0,0,np.array([]),1,0
+               return 0, 0, 0, 0, np.array([]), 1, 0
 # =============================================================================
 # #statue - 1 :未在岗
 # #statue - 0 :在岗
@@ -104,13 +99,18 @@ def body_analysis(img_unint8):
   
       
 if __name__ == '__main__': 
-      img_path = r"D:\1yd\Xcode\Video_data\hongkou\jiushengyuan\2021-03-29\192.168.7.102\00020.jpg"       
+      img_path = r"/home/ps/Video_data/hongkou/jiushengyuan/00020.jpg"
       img = cv2.imread(img_path)
       #将numpy的数组转换为bytes
-      result_img,statue,message =  body_analysis(img)
-      
-      if result_img.size > 0:
-            cv2.imshow('image',img)  
+      _,_,_,_,result_img, statue, message = body_analysis(img)
+      # result_img = body_analysis(img)
+
+      if result_img.__sizeof__() > 0:
+            cv2.imshow('image', img)
             cv2.waitKey(0)
       else:
             print('-_-')
+
+
+      # r = get_token()
+      # print(r)

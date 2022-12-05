@@ -24,8 +24,8 @@ import numpy as np
 def calibration(picture):
   frame = cv2.resize(picture, (2560, 1440))
   h, w = frame.shape[:2]
-  mtx = np.load("apps/camera/mtx2.npy")
-  dist = np.load("apps/camera/dist2.npy")
+  mtx = np.load("apps/camera/mtx2.npy", encoding='bytes')
+  dist = np.load("apps/camera/dist2.npy", encoding='bytes')
   newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 0, (w, h))  # 自由比例参数
   dst = cv2.undistort(frame, mtx, dist, None, newcameramtx)
   x, y, w, h = roi
